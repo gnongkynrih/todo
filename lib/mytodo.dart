@@ -24,13 +24,23 @@ class _MyToDoState extends State<MyToDo> {
             child: Column(children: [
               TextFormField(
                 controller: textController,
+                validator: (String? value) {
+                  if (value!.isEmpty) {
+                    return 'Field is required';
+                  } else if (value.length < 4) {
+                    return "Enter at least 4 characters";
+                  }
+                  return null;
+                },
               ),
               const SizedBox(
                 height: 10,
               ),
               ElevatedButton(
                   onPressed: () {
-                    print(textController.text);
+                    if (myForm.currentState!.validate()) {
+                      print(textController.text);
+                    }
                   },
                   child: const Text('Save'))
             ]),
