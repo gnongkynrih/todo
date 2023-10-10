@@ -1,6 +1,7 @@
 import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:quickalert/quickalert.dart';
+import 'package:todo/listtask.dart';
 import 'package:todo/taskmodel.dart';
 
 class MyToDo extends StatefulWidget {
@@ -40,8 +41,8 @@ class _MyToDoState extends State<MyToDo> {
                 height: 10,
               ),
               ElevatedButton(
-                  onPressed: () {
-                    QuickAlert.show(
+                  onPressed: () async {
+                    await QuickAlert.show(
                         context: context,
                         type: QuickAlertType.confirm,
                         text: 'Do you want to save the data',
@@ -52,9 +53,12 @@ class _MyToDoState extends State<MyToDo> {
                           if (myForm.currentState!.validate()) {
                             TaskModel t = TaskModel(
                                 isCompleted: false, task: textController.text);
-                            tasks.add(t);
-
+                            setState(() {
+                              tasks.add(t);
+                            });
+                            Navigator.pop(context);
                             AnimatedSnackBar.material(
+                              duration: const Duration(seconds: 2),
                               'One record added successfully',
                               type: AnimatedSnackBarType.success,
                             ).show(context);
@@ -67,6 +71,11 @@ class _MyToDoState extends State<MyToDo> {
                           }
                           Navigator.pop(context);
                         });
+
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (builder) => const ListTask()));
                   },
                   child: const Text('Save'))
             ]),
