@@ -13,7 +13,6 @@ class ListTask extends StatefulWidget {
 class _ListTaskState extends State<ListTask> {
   @override
   Widget build(BuildContext context) {
-    print(tasks.length);
     return Scaffold(
       appBar: AppBar(
         title: const Text(
