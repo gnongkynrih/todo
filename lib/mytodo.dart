@@ -1,6 +1,7 @@
 import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:quickalert/quickalert.dart';
+import 'package:todo/taskmodel.dart';
 
 class MyToDo extends StatefulWidget {
   const MyToDo({super.key});
@@ -49,9 +50,19 @@ class _MyToDoState extends State<MyToDo> {
                         confirmBtnColor: Colors.green,
                         onConfirmBtnTap: () {
                           if (myForm.currentState!.validate()) {
+                            TaskModel t = TaskModel(
+                                isCompleted: false, task: textController.text);
+                            tasks.add(t);
+
                             AnimatedSnackBar.material(
                               'One record added successfully',
                               type: AnimatedSnackBarType.success,
+                            ).show(context);
+                          } else {
+                            AnimatedSnackBar.material(
+                              duration: const Duration(seconds: 10),
+                              'Not added',
+                              type: AnimatedSnackBarType.warning,
                             ).show(context);
                           }
                           Navigator.pop(context);
