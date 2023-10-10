@@ -1,4 +1,6 @@
+import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:quickalert/quickalert.dart';
 
 class MyToDo extends StatefulWidget {
   const MyToDo({super.key});
@@ -38,9 +40,22 @@ class _MyToDoState extends State<MyToDo> {
               ),
               ElevatedButton(
                   onPressed: () {
-                    if (myForm.currentState!.validate()) {
-                      print(textController.text);
-                    }
+                    QuickAlert.show(
+                        context: context,
+                        type: QuickAlertType.confirm,
+                        text: 'Do you want to save the data',
+                        confirmBtnText: 'Yes',
+                        cancelBtnText: 'No',
+                        confirmBtnColor: Colors.green,
+                        onConfirmBtnTap: () {
+                          if (myForm.currentState!.validate()) {
+                            AnimatedSnackBar.material(
+                              'One record added successfully',
+                              type: AnimatedSnackBarType.success,
+                            ).show(context);
+                          }
+                          Navigator.pop(context);
+                        });
                   },
                   child: const Text('Save'))
             ]),
