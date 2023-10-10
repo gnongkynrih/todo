@@ -41,37 +41,26 @@ class _MyToDoState extends State<MyToDo> {
                 height: 10,
               ),
               ElevatedButton(
-                  onPressed: () async {
-                    await QuickAlert.show(
-                        context: context,
-                        type: QuickAlertType.confirm,
-                        text: 'Do you want to save the data',
-                        confirmBtnText: 'Yes',
-                        cancelBtnText: 'No',
-                        confirmBtnColor: Colors.green,
-                        onConfirmBtnTap: () {
-                          if (myForm.currentState!.validate()) {
-                            TaskModel t = TaskModel(
-                                isCompleted: false, task: textController.text);
-                            setState(() {
-                              tasks.add(t);
-                            });
-                            Navigator.pop(context);
-                            AnimatedSnackBar.material(
-                              duration: const Duration(seconds: 2),
-                              'One record added successfully',
-                              type: AnimatedSnackBarType.success,
-                            ).show(context);
-                          } else {
-                            AnimatedSnackBar.material(
-                              duration: const Duration(seconds: 10),
-                              'Not added',
-                              type: AnimatedSnackBarType.warning,
-                            ).show(context);
-                          }
-                          Navigator.pop(context);
-                        });
-
+                  onPressed: () {
+                    if (myForm.currentState!.validate()) {
+                      TaskModel t = TaskModel(
+                          isCompleted: false, task: textController.text);
+                      setState(() {
+                        tasks.add(t);
+                      });
+                      Navigator.pop(context);
+                      AnimatedSnackBar.material(
+                        duration: const Duration(seconds: 2),
+                        'One record added successfully',
+                        type: AnimatedSnackBarType.success,
+                      ).show(context);
+                    } else {
+                      AnimatedSnackBar.material(
+                        duration: const Duration(seconds: 10),
+                        'Not added',
+                        type: AnimatedSnackBarType.warning,
+                      ).show(context);
+                    }
                     Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(

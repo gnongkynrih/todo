@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quickalert/quickalert.dart';
 import 'package:todo/mytodo.dart';
 import 'package:todo/taskmodel.dart';
 
@@ -36,6 +37,27 @@ class _ListTaskState extends State<ListTask> {
                   value: tasks[index].isCompleted,
                 ),
                 title: Text(tasks[index].task),
+                trailing: IconButton(
+                  icon: Icon(
+                    Icons.delete,
+                    color: Colors.red.shade600,
+                  ),
+                  onPressed: () {
+                    QuickAlert.show(
+                        context: context,
+                        type: QuickAlertType.confirm,
+                        text: 'Are you sure you want to delete',
+                        confirmBtnText: 'Yes',
+                        cancelBtnText: 'No',
+                        confirmBtnColor: Colors.red,
+                        onConfirmBtnTap: () {
+                          setState(() {
+                            tasks.removeAt(index);
+                          });
+                          Navigator.pop(context);
+                        });
+                  },
+                ),
               );
             }),
       ),
