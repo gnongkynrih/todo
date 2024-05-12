@@ -30,6 +30,7 @@ class BookingMailable extends Mailable
         return new Envelope(
             from: new Address('contact@yalanahotel.com', 'Hotel Booking - Yalana'),
             subject: 'Hotel Booking - Hotel Yalana',
+            cc: ['kynsai@gmail.com'],
         );
     }
 
