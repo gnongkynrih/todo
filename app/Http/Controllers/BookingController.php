@@ -30,11 +30,11 @@ class BookingController extends Controller
             $data = [
                 'name' => $request->name,
                 'email' => $request->email,
-                'room' => $request->room,
+                'room' => $request->roomType,
                 'mobile' => $request->mobile,
-                'roomcount' => $request->roomcount,
-                'checkin' => $request->checkin,
-                'checkout' => $request->checkout,
+                'roomcount' => $request->roomCount,
+                'checkin' =>date('d-m-Y',strtotime($request->arrival)),
+                'checkout' => date('d-m-Y',strtotime($request->departure)),
             ];
             Mail::to($request->email)->send(new BookingMailable($data));
 
