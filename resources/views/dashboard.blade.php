@@ -3,6 +3,18 @@
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Bookings') }}
         </h2>
+        <form action="{{route('dashboard')}}" method="get">
+        @csrf
+            <div class="flex">
+                <select name="bookingstatus" id="bookingstatus" class="form-select mt-1 block w-1/4">
+                    <option value="pending" {{ request('bookingstatus') == 'pending' ? 'selected' : '' }}>Pending</option>
+                    <option value="confirmed" {{ request('bookingstatus') == 'confirmed' ? 'selected' : '' }}>Confirmed</option>
+                    <option value="cancelled" {{ request('bookingstatus') == 'cancelled' ? 'selected' : '' }}>Cancelled</option>
+                </select>
+                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2">
+                    <i class="fa-solid fa-search"></i>&nbsp;Filter</button>
+            </div>
+        </form>
     </x-slot>
 
     <div class="py-12">
@@ -36,7 +48,7 @@
                                     <td class="px-6 py-4 border border-b border-gray-200">{{ $booking->departure_date }}</td>
                                     <td class="px-6 py-4 border border-b border-gray-200">{{ $booking->roomCount }}</td>
                                     <td class="px-6 py-3 border border-b-2 border-gray-200 font-medium text-left text-xs leading-4 tracking-wider"><i class="fa-regular fa-square"></i></td>
-                                    <td class="px-6 py-3 text-red-500 border border-b-2 border-gray-200 font-medium text-left text-xs leading-4 tracking-wider"><i class="fa-solid fa-xmark"></i></td>
+                                    <td class="px-6 py-3 text-red-500 border border-b-2 border-gray-200 font-medium text-left text-xs leading-4 tracking-wider"><i class="fa-regular fa-rectangle-xmark"></i></td>
                                 </tr>
                             @endforeach
                         </tbody>
