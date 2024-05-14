@@ -40,7 +40,7 @@ class BookingController extends Controller
 
             return response()->json(['message' => 'success'], 200);
         }catch(\Exception $e){
-            return response()->json(['message' => $e->getMessage()], 500);
+            return response()->json(['message' => $e], 500);
         }
     }
 }
