@@ -36,9 +36,9 @@ class BookingController extends Controller
                 'checkin' => $request->checkin,
                 'checkout' => $request->checkout,
             ];
-            $data = Mail::to($request->email)->send(new BookingMailable($data));
+            Mail::to($request->email)->send(new BookingMailable($data));
 
-            return response()->json(['message' => $data], 200);
+            return response()->json(['message' => 'success'], 200);
         }catch(\Exception $e){
             return response()->json(['message' => $e->getMessage()], 500);
         }
