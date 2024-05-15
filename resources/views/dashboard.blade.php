@@ -47,8 +47,16 @@
                                     <td class="px-6 py-4 border border-b border-gray-200">{{ $booking->arrival_date }}</td>
                                     <td class="px-6 py-4 border border-b border-gray-200">{{ $booking->departure_date }}</td>
                                     <td class="px-6 py-4 border border-b border-gray-200">{{ $booking->roomCount }}</td>
-                                    <td class="px-6 py-3 border border-b-2 border-gray-200 font-medium text-left text-xs leading-4 tracking-wider"><i class="fa-regular fa-square"></i></td>
-                                    <td class="px-6 py-3 text-red-500 border border-b-2 border-gray-200 font-medium text-left text-xs leading-4 tracking-wider"><i class="fa-regular fa-rectangle-xmark"></i></td>
+                                    <td class="px-6 py-3 border border-b-2 border-gray-200 font-medium text-left text-xs leading-4 tracking-wider">
+                                        <a href="#" @click.prevent="confirmDelete = true; bookingId = {{ $booking->id }}">
+                                            <i class="fa-regular fa-square"></i>
+                                        </a>
+                                    </td>
+                                    <td class="px-6 py-3 border border-b-2 border-gray-200 font-medium text-left text-xs leading-4 tracking-wider  text-red-500">
+                                        <a href="#" @click.prevent="confirmDelete = true; bookingId = {{ $booking->id }}">
+                                            <i class="fa-regular fa-rectangle-xmark"></i>
+                                        </a>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -60,4 +68,17 @@
             </div>
         </div>
     </div>
+    <div x-data="{ confirmDelete: false, bookingId: null }">
+  <div x-show="confirmDelete" x-cloak @close.away="confirmDelete = false">
+    <div class="fixed inset-0 bg-gray-500 opacity-75 transition-opacity"></div>
+    <div class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-md p-4">
+      <p class="text-lg font-medium text-center">Are you sure you want to delete booking?</p>
+      <div class="flex justify-end mt-4">
+        <button type="button" class="btn btn-outline mr-2" @click="confirmDelete = false">Cancel</button>
+        <button wire:click="deleteBooking(bookingId)" class="btn btn-danger" @click="confirmDelete = false">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  </div>
 </x-app-layout>
