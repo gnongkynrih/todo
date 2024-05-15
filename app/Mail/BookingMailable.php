@@ -31,6 +31,7 @@ class BookingMailable extends Mailable
             from: new Address('contact@yalanahotel.com', 'Hotel Booking - Yalana'),
             subject: 'Hotel Booking - Hotel Yalana',
             // cc: ['yalana.hotel@rediffmail.com'],
+            cc: ['gordon.nongkynrih@outlook.com'],
         );
     }
 
