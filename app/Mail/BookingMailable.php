@@ -30,8 +30,7 @@ class BookingMailable extends Mailable
         return new Envelope(
             from: new Address('contact@yalanahotel.com', 'Hotel Yalana - Room Booking'),
             subject: 'Hotel Booking - Hotel Yalana',
-            // cc: ['yalana.hotel@rediffmail.com'],
-            cc: ['gordon.nongkynrih@outlook.com'],
+            cc: ['yalana.hotel@rediffmail.com'],
         );
     }
 
