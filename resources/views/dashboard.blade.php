@@ -49,14 +49,14 @@
                                     <td class="px-6 py-4 border border-b border-gray-200">{{ $booking->arrival_date }}</td>
                                     <td class="px-6 py-4 border border-b border-gray-200">{{ $booking->departure_date }}</td>
                                     <td class="px-6 py-4 border border-b border-gray-200">{{ $booking->roomCount }}</td>
-                                    <td class="px-6 py-3 border border-b-2 border-gray-200 font-medium text-left text-xs leading-4 tracking-wider">
+                                    <td class="px-6 py-3 border border-b-2 border-gray-200 font-medium text-left text-lg leading-4 tracking-wider text-green-500">
                                         <a href="#" class="confirm" >
-                                            <i class="fa-regular fa-square" id="C{{$booking->id}}"></i>
+                                            <i class="fa-solid fa-check"" id="C{{$booking->id}}"></i>
                                         </a>
                                     </td>
-                                    <td class="px-6 py-3 border border-b-2 border-gray-200 font-medium text-left text-xs leading-4 tracking-wider  text-red-500">
+                                    <td class="px-6 py-3 border border-b-2 border-gray-200 font-medium text-left text-lg leading-4 tracking-wider  text-red-500">
                                         <a href="#" class="confirm" >
-                                            <i class="fa-regular fa-rectangle-xmark" id="D{{$booking->id}}"></i>
+                                            <i class="fa-solid fa-xmark" id="D{{$booking->id}}"></i>
                                         </a>
                                     </td>
                                 </tr>
