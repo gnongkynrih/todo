@@ -13,6 +13,7 @@ Route::middleware(['auth', 'verified'])
     ->group(function () {
         Route::controller(DashboardController::class)->group(function () {
             Route::get('/', 'index')->name('dashboard');
+            Route::put('/booking/{booking}', 'store')->name('booking.store');
         });
     });
 Route::view('profile', 'profile')

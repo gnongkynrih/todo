@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -48,13 +50,13 @@
                                     <td class="px-6 py-4 border border-b border-gray-200">{{ $booking->departure_date }}</td>
                                     <td class="px-6 py-4 border border-b border-gray-200">{{ $booking->roomCount }}</td>
                                     <td class="px-6 py-3 border border-b-2 border-gray-200 font-medium text-left text-xs leading-4 tracking-wider">
-                                        <a href="#" @click.prevent="confirmDelete = true; bookingId = {{ $booking->id }}">
-                                            <i class="fa-regular fa-square"></i>
+                                        <a href="#" class="confirm" >
+                                            <i class="fa-regular fa-square" id="C{{$booking->id}}"></i>
                                         </a>
                                     </td>
                                     <td class="px-6 py-3 border border-b-2 border-gray-200 font-medium text-left text-xs leading-4 tracking-wider  text-red-500">
-                                        <a href="#" @click.prevent="confirmDelete = true; bookingId = {{ $booking->id }}">
-                                            <i class="fa-regular fa-rectangle-xmark"></i>
+                                        <a href="#" class="confirm" >
+                                            <i class="fa-regular fa-rectangle-xmark" id="D{{$booking->id}}"></i>
                                         </a>
                                     </td>
                                 </tr>
@@ -68,17 +70,79 @@
             </div>
         </div>
     </div>
-    <div x-data="{ confirmDelete: false, bookingId: null }">
-  <div x-show="confirmDelete" x-cloak @close.away="confirmDelete = false">
-    <div class="fixed inset-0 bg-gray-500 opacity-75 transition-opacity"></div>
-    <div class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-md p-4">
-      <p class="text-lg font-medium text-center">Are you sure you want to delete booking?</p>
-      <div class="flex justify-end mt-4">
-        <button type="button" class="btn btn-outline mr-2" @click="confirmDelete = false">Cancel</button>
-        <button wire:click="deleteBooking(bookingId)" class="btn btn-danger" @click="confirmDelete = false">Delete</button>
-      </div>
-    </div>
-  </div>
 
-  </div>
 </x-app-layout>
+<script>
+
+    document.addEventListener('DOMContentLoaded', function() {
+        let confirm = document.querySelectorAll('.confirm');
+        //loop through all elements
+        confirm.forEach(function(element) {
+            element.addEventListener('click', function(e) {
+                e.preventDefault();
+                let id = e.target.id;
+                let action = id.charAt(0);
+                let msg = '';
+                if(action === 'C') {
+                    msg = 'Are you sure you want to confirm this booking?';
+                } else {
+                    msg = 'Are you sure you want to cancel this booking?';
+                }
+                // display confirmation dialog box
+                
+                let bookingId = id.substring(1);
+                let bookingStatus = action === 'C' ? 'confirmed' : 'cancelled';
+                Swal.fire({
+                    title: 'Are you sure',
+                    text: `${msg}`,
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes',
+                    cancelButtonText: 'No'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Send a PUT request to the server using Axios
+                        axios.put('/booking/' + bookingId, {
+                            status: bookingStatus
+                        }, {
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                            }
+                        })
+                        .then(response => {
+                            // Display success toast notification
+                            Toastify({
+                                text: "Booking status updated successfully!",
+                                duration: 3000,
+                                close: true,
+                                gravity: "top", // `top` or `bottom`
+                                position: "right", // `left`, `center` or `right`
+                                backgroundColor: "#4CAF50",
+                                stopOnFocus: true // Prevents dismissing of toast on hover
+                            }).showToast();
+
+                            //hide the row
+                            document.getElementById(id).closest('tr').style.display = 'none';
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            // Display error toast notification
+                            Toastify({
+                                text: "An error occurred. Please try again.",
+                                duration: 3000,
+                                close: true,
+                                gravity: "top", // `top` or `bottom`
+                                position: "right", // `left`, `center` or `right`
+                                backgroundColor: "#F44336",
+                                stopOnFocus: true // Prevents dismissing of toast on hover
+                            }).showToast();
+                        });
+                    }
+                });
+            });
+        });
+    });
+</script>

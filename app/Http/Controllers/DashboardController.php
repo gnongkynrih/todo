@@ -15,4 +15,17 @@ class DashboardController extends Controller
         }
         return view('dashboard',compact('bookings'));
     }
+    public function store(Booking $booking,Request $request){
+        try{
+            $booking->status = $request->status;
+            $booking->save();
+            return response()->json([
+                'message' => 'Booking status updated successfully'
+            ]);
+        }catch(\Exception $e){
+            return response()->json([
+                'message' => 'An error occurred while updating booking status'
+            ],500);
+        }
+    }
 }
