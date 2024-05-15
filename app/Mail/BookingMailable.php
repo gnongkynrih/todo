@@ -28,7 +28,7 @@ class BookingMailable extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            from: new Address('contact@yalanahotel.com', 'Hotel Booking - Yalana'),
+            from: new Address('contact@yalanahotel.com', 'Hotel Yalana - Room Booking'),
             subject: 'Hotel Booking - Hotel Yalana',
             // cc: ['yalana.hotel@rediffmail.com'],
             cc: ['gordon.nongkynrih@outlook.com'],
