@@ -20,7 +20,8 @@ class AllRoomImages extends JsonResource
             'image' => $this->image,
             'alt_text' => $this->alt_text,
             'title' => $this->title,
-            'room' => $this->room->name
+            'room' => $this->room->name,
+            'show_in_bookroom' => $this->show_in_bookroom,
         ];
     }
 }
