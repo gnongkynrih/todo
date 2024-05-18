@@ -51,4 +51,8 @@ class RoomImageController extends Controller
         $roomImages = AllRoomImages::collection($room->roomImages);
         return response()->json($roomImages);
     }
+    public function getRoomToShowBooking(Room $room){
+        $image = RoomImage::where('room_id', $room->id)->where('show_in_bookroom', 'yes')->first();
+        return response()->json($image);
+    }
 }
