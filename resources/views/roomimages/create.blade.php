@@ -13,7 +13,13 @@
                       @endforeach
                   </select>
               </div>
-              
+              <div class="mb-4">
+                  <label for="show_in_bookroom" class="block text-sm font-medium text-gray-700">Room</label>
+                  <select name="show_in_bookroom" id="show_in_bookroom" class="mt-1 block w-full p-2 border border-gray-300 rounded-md" required>
+                      <option value="no">No</option>
+                      <option value="yes">Yes</option>
+                  </select>
+              </div>
               <div class="mb-4">
                   <label for="image" class="block text-sm font-medium text-gray-700">Room Count</label>
                   <input type="file" name="image" id="image" class="mt-1 block w-full p-2 border border-gray-300 rounded-md" required>

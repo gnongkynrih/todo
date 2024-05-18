@@ -25,6 +25,7 @@ class RoomImageController extends Controller
         }
         $rimage = new RoomImage();
         $rimage->room_id = $request->room_id;
+        $rimage->show_in_bookroom = $request->show_in_bookroom;
         $rimage->image = $filename;
         $rimage->alt_text = $request->alt_text;
         $rimage->title = $request->title;

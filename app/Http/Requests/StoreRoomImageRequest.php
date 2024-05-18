@@ -26,6 +26,7 @@ class StoreRoomImageRequest extends FormRequest
             'image' => 'required',
             'alt_text' => 'nullable',
             'title' => 'nullable',
+            'show_in_bookroom' => 'required'
         ];
     }
 }
