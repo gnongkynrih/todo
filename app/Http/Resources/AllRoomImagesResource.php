@@ -17,7 +17,7 @@ class AllRoomImagesResource extends JsonResource
         return [
             'id' => $this->id,
             'room_id' => $this->room_id,
-            'url' => asset('storage/images'.$this->image),
+            'image' => $this->image,
             'alt_text' => $this->alt_text,
             'title' => $this->title,
             'room' => $this->room->name,
