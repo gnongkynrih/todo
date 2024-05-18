@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Room;
 use App\Models\RoomImage;
 use Illuminate\Http\Request;
-use App\Http\Resources\AllRoomImages;
 use App\Http\Requests\StoreRoomImageRequest;
+use App\Http\Resources\AllRoomImagesResource;
 
 class RoomImageController extends Controller
 {
@@ -44,11 +44,14 @@ class RoomImageController extends Controller
     }
 
     public function getRoomImages(){
-        $roomImages =AllRoomImages::collection(RoomImage::all());
+        $roomImages =AllRoomImagesResource::collection(RoomImage::all());
         return response()->json($roomImages);
     }
     public function getRoomImageByRoomId(Room $room){
-        $roomImages = AllRoomImages::collection($room->roomImages);
+        $images = RoomImage::where('room_id', $room->id)->get();
+
+        $roomImages = AllRoomImagesResource::collection($room->roomImages);
+        dd($roomImages);
         return response()->json($roomImages);
     }
     public function getRoomToShowBooking(Room $room){

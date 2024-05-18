@@ -13,4 +13,7 @@ class RoomImage extends Model
     public function room(){
         return $this->belongsTo(Room::class);
     }
+    public function getImageUrl(){
+        return asset('storage/images'.$this->image);
+    }
 }
