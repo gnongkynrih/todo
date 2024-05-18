@@ -18,7 +18,7 @@ class AllRoomImagesResource extends JsonResource
         return [
             'id' => $this->id,
             'room_id' => $this->room_id,
-            'image' =>  url(Storage::url('images/'  . $this->image)),
+            'image' => 'https://booking.yalanahotel.com/public/storage/images/' . $this->image,
             'alt_text' => $this->alt_text,
             'title' => $this->title,
             'room' => $this->room->name,
