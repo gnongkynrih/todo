@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Room;
 use App\Models\RoomImage;
 use Illuminate\Http\Request;
+use App\Http\Resources\AllRoomImages;
 use App\Http\Requests\StoreRoomImageRequest;
 
 class RoomImageController extends Controller
@@ -39,5 +40,10 @@ class RoomImageController extends Controller
         }
         $roomImage->delete();
         return redirect()->route('roomImages.index')->with('success', 'Room Image Deleted Successfully');
+    }
+
+    public function getRoomImages(){
+        $roomImages =AllRoomImages::collection(RoomImage::all());
+        return response()->json($roomImages);
     }
 }
