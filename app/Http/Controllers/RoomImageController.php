@@ -46,4 +46,8 @@ class RoomImageController extends Controller
         $roomImages =AllRoomImages::collection(RoomImage::all());
         return response()->json($roomImages);
     }
+    public function getRoomImageByRoomId(Room $room){
+        $roomImages = AllRoomImages::collection($room->roomImages);
+        return response()->json($roomImages);
+    }
 }

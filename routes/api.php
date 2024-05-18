@@ -10,3 +10,4 @@ Route::get('/user', function (Request $request) {
 Route::post('/bookroom', 'App\Http\Controllers\BookingController@bookRoom');
 
 Route::get('/getroomimages', 'App\Http\Controllers\RoomImageController@getRoomImages');
+Route::get('/getroomimagesbyid/{room}', 'App\Http\Controllers\RoomImageController@getRoomImageByRoomId');
