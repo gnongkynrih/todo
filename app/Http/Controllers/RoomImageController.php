@@ -22,7 +22,6 @@ class RoomImageController extends Controller
             $filename = time() . '.' . $request->image->extension();
             $request->image->storeAs('public/images', $filename);
         }
-        RoomImage::create($request->all());
         $rimage = new RoomImage();
         $rimage->room_id = $request->room_id;
         $rimage->image = $filename;
