@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class AllRoomImagesResource extends JsonResource
@@ -17,7 +18,7 @@ class AllRoomImagesResource extends JsonResource
         return [
             'id' => $this->id,
             'room_id' => $this->room_id,
-            'image' =>asset('storage/images' . $this->image),
+            'image' =>  url(Storage::url('images/'  . $this->image)),
             'alt_text' => $this->alt_text,
             'title' => $this->title,
             'room' => $this->room->name,
