@@ -48,11 +48,10 @@ class RoomImageController extends Controller
         return response()->json($roomImages);
     }
     public function getRoomImageByRoomId(Room $room){
-        $images = RoomImage::where('room_id', $room->id)->get();
-
-        $roomImages = AllRoomImagesResource::collection($room->roomImages);
-        dd($roomImages);
-        return response()->json($roomImages);
+        $images = AllRoomImagesResource::collection(RoomImage::where('room_id', $room->id)->get());
+        // $roomImages = AllRoomImagesResource::collection($room->roomImages);
+       
+        return response()->json($images);
     }
     public function getRoomToShowBooking(Room $room){
         $image = RoomImage::where('room_id', $room->id)->where('show_in_bookroom', 'yes')->first();
