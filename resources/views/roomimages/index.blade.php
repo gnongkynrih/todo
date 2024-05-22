@@ -26,14 +26,14 @@
             @foreach($images as $image)
                 <tr>
                     <td class="px-6 py-3 border border-b-2 border-gray-200 ">
-                      <img class="w-24 h-24" src="{{ asset('storage/images/' .$image->image) }}" /></td>
+                      <img style="width:150px; height:150px" class="max-w-16 max-h-16" src="{{ asset('storage/images/' .$image->image) }}" /></td>
                     <td class="px-6 py-3 border border-b-2 border-gray-200 ">{{ $image->room->name }}</td>
                     <td class="px-6 py-3 border border-b-2 border-gray-200 ">{{ $image->title }}</td>
                     <td class="px-6 py-3 border border-b-2 border-gray-200 ">
                         <form action="{{ route('roomImages.destroy', $image->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this image?');">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"><i class="fa-solid fa-trash"></i></button>
+                            <button type="submit" class="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"><i class="fa-solid fa-xmark"></i> Delete</button>
                         </form>
                     </td>
                 </tr>
