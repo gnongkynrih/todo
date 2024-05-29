@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Room;
+use App\Models\RoomImage;
 use Illuminate\Http\Request;
 use App\Http\Requests\RoomRequest;
 
@@ -24,4 +25,19 @@ class RoomController extends Controller
         $room->save();
         return redirect()->route('rooms.index');
     }
+
+    public function getRoomCategory(){
+        $rooms = Room::where('status','active')->get();
+        $data = [];
+        foreach($rooms as $room){
+            $roomImage = RoomImage::where('room_id',$room->id)
+            ->where('show_in_bookroom','yes')->first();
+            $data[] = [
+                'id' => $room->id,
+                'name' => $room->name,
+                'price' => $room->price,
+                'image' => $roomImage->image ??''
+            ];
+        }
+        return response()->json($data);}
 }
