@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Review;
 use Illuminate\Http\Request;
+use App\Http\Resources\ReviewResource;
 
 class ReviewController extends Controller
 {
@@ -35,5 +36,11 @@ class ReviewController extends Controller
         }
         $review->delete();
         return redirect()->route('reviews.index')->with('success', 'Review Deleted Successfully');
+    }
+
+    public function getReviews(){
+        //get the latest 6 reviews
+        $reviews =ReviewResource::collection(Review::latest()->take(6)->get());
+        return response()->json($reviews);
     }
 }
