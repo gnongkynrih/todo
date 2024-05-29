@@ -32,7 +32,12 @@ class RoomController extends Controller
         foreach($rooms as $room){
             $roomImage = RoomImage::where('room_id',$room->id)
             ->where('show_in_bookroom','yes')->first();
-            $url  ='https://booking.yalanahotel.com/public/storage/images/' . $roomImage->image;
+            if($roomImage->image){
+                $url  ='https://booking.yalanahotel.com/public/storage/images/' . $roomImage->image;
+            }else{
+                $url  ='https://booking.yalanahotel.com/public/images/person.png';
+            }
+            
             $data[] = [
                 'id' => $room->id,
                 'name' => $room->name,
