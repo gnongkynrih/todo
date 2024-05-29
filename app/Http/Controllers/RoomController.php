@@ -32,11 +32,12 @@ class RoomController extends Controller
         foreach($rooms as $room){
             $roomImage = RoomImage::where('room_id',$room->id)
             ->where('show_in_bookroom','yes')->first();
+            $url  ='https://booking.yalanahotel.com/public/storage/images/' . $roomImage->image;
             $data[] = [
                 'id' => $room->id,
                 'name' => $room->name,
                 'price' => $room->price,
-                'image' => $roomImage->image ??''
+                'image' => $url
             ];
         }
         return response()->json($data);}
