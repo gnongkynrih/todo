@@ -63,8 +63,8 @@
                         </tbody>
                     </table>
                     <div class="text-gray-100 dark:text-amber-500 mt-2">
-                {{ $bookings->links('pagination::tailwind', ['class' => 'bg-gray-800']) }}
-            </div>
+                        {{ $bookings->links('pagination::tailwind', ['class' => 'bg-gray-800']) }}
+                    </div>
                 </div>
             </div>
         </div>

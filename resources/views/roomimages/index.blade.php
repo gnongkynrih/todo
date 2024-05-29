@@ -40,6 +40,9 @@
             @endforeach
         </tbody>
     </table>
+    <div class="text-gray-100 dark:text-amber-500 mt-2">
+        {{ $images->links('pagination::tailwind', ['class' => 'bg-gray-800']) }}
+    </div>
 </div>
 </x-slot>
 </x-app-layout>
