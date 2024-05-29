@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoomController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\RoomImageController;
 
@@ -30,6 +31,13 @@ Route::middleware(['auth', 'verified'])
             Route::get('/roomimages/create', 'create')->name('roomImages.create');
             Route::post('/roomimages', 'store')->name('roomImages.store');
             Route::delete('/roomimages/{roomImage}', 'destroy')->name('roomImages.destroy');
+        });
+
+        Route::controller(ReviewController::class)->group(function(){
+            Route::get('/reviews', 'index')->name('reviews.index');
+            Route::get('/reviews/create', 'create')->name('reviews.create');
+            Route::post('/reviews', 'store')->name('reviews.store');
+            Route::delete('/reviews/{review}', 'destroy')->name('reviews.destroy');
         });
     });
 Route::view('profile', 'profile')
