@@ -17,7 +17,7 @@ class ReviewResource extends JsonResource
         if($this->profile)
             $url = 'https://booking.yalanahotel.com/public/storage/images/' . $this->profile;
         else
-
+            $url = 'https://booking.yalanahotel.com/public/images/person.png';
         return [
             'id' => $this->id,
             'profile' => $url,
