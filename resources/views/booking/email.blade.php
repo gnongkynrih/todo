@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hotel Booking - Yalana</title>
+  <title>Room Booking - Peit Them Resort</title>
   <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body class="bg-gray-100 font-sans">
   <div class="container mx-auto max-w-md py-10">
-    <h1 class="text-3xl font-bold text-center mb-4">Hotel Yalana - Booking Request!</h1>
+    <h1 class="text-3xl font-bold text-center mb-4">Peit Them Resort - Booking Request!</h1>
     <p class="text-gray-600 text-center mb-8">Thank you for booking with us. Here are the details of your reservation:</p>
 
     <table class="w-full table-auto shadow-md rounded-lg">
