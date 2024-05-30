@@ -14,9 +14,13 @@ class ReviewResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        if($this->profile)
+            $url = 'https://booking.yalanahotel.com/public/storage/images/' . $this->profile;
+        else
+
         return [
             'id' => $this->id,
-            'profile' => $this->profile,
+            'profile' => $url,
             'name' => $this->name,
             'rating' => $this->rating,
             'review' => $this->review,
