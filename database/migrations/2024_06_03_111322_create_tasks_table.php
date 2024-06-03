@@ -11,8 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('room_images', function (Blueprint $table) {
-            $table->string('show_in_bookroom',4)->default('no');
+        Schema::create('tasks', function (Blueprint $table) {
+            $table->id();
+            $table->string('task',250);
+            $table->string('status','10')->default('pending');
+            $table->date('due_date');
+            $table->timestamps();
         });
     }
 
@@ -21,8 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('roomimages', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('tasks');
     }
 };
