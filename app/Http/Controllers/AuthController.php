@@ -3,40 +3,36 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\BaseController;
 use App\Http\Requests\CreateUserRequest;
 
-class AuthController extends Controller
+class AuthController extends BaseController
 {
     public function register(CreateUserRequest $request)
     {
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => $request->password,
-        ]);
-
-        return response()->json(['message' => 'User registered successfully'], 201);
+        try{
+            $user = User::create($request->validated());
+            $success['token'] =  $user->createToken('todo')->plainTextToken;
+            $success['name'] =  $user->name;
+            return $this->sendResponse($success, 'User register successfully.');
+        }catch(Exception $e){
+            $this->sendError('User registration failed', $e->getMessage());
+        }
     }
 
     public function login(LoginRequest $request)
     {
         $user = User::where('email', $request->email)->first();
 
-        $user = User::where('email', $request->email)->first();
-
         if ($user && $user->password === $request->password) {
-            // Generate a Sanctum token
-            $token = $user->createToken('auth_token')->plainTextToken;
-
-            return response()->json([
-                'message' => 'Login successful',
-                'token' => $token,
-                'user' => $user
-            ], 200);
+            $success['token'] =  $user->createToken('MyApp')->plainTextToken; 
+            $success['name'] =  $user->name;
+            return $this->sendResponse($success, 'User login successfully.');
         }
 
-        return response()->json(['message' => 'Invalid credentials'], 401);
+        return $this->sendError('Unauthorised.', ['error'=>'Unauthorised']);
     }
 
     public function logout(Request $request)

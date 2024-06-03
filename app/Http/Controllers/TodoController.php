@@ -6,8 +6,9 @@ use App\Models\Task;
 use Illuminate\Http\Request;
 use App\Http\Requests\TodoRequest;
 use App\Http\Resources\TaskResource;
+use App\Http\Controllers\BaseController;
 
-class TodoController extends Controller
+class TodoController extends BaseController
 {
     public function index(){
         $tasks = Task::paginate(10);
