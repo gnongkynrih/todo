@@ -20,6 +20,8 @@
                 <th class="py-2 px-4 border-b">Name</th>
                 <th class="py-2 px-4 border-b">Review</th>
                 <th class="py-2 px-4 border-b">Rating</th>
+                <th class="py-2 px-4 border-b">Status</th>
+                <th class="py-2 px-4 border-b">Publish</th>
                 <th class="py-2 px-4 border-b">Delete</th>
             </tr>
         </thead>
@@ -31,11 +33,23 @@
                     <td class="px-6 py-3 border border-b-2 border-gray-200 ">{{ $review->name }}</td>
                     <td class="px-6 py-3 border border-b-2 border-gray-200 ">{{ $review->review }}</td>
                     <td class="px-6 py-3 border border-b-2 border-gray-200 ">{{ $review->rating }}</td>
+                    <td class="px-6 py-3 border border-b-2 border-gray-200 ">{{ $review->status }}</td>
+                    @if($review->status=='draft')
+                        <td class="px-6 py-3 border border-b-2 border-gray-200 ">
+                            <form action="{{ route('reviews.approve', $review->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to approve this review?');">
+                                @csrf
+                                @method('PUT')
+                                <button type="submit" class="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600"><i class="fa-solid fa-check"></i> </button>
+                            </form>
+                        </td>
+                    @else
+                        <td>&nbsp;</td>
+                    @endif
                     <td class="px-6 py-3 border border-b-2 border-gray-200 ">
                         <form action="{{ route('reviews.destroy', $review->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this review?');">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"><i class="fa-solid fa-xmark"></i> Delete</button>
+                            <button type="submit" class="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"><i class="fa-solid fa-xmark"></i> </button>
                         </form>
                     </td>
                 </tr>

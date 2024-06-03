@@ -9,24 +9,21 @@ use App\Http\Resources\ReviewResource;
 class ReviewController extends Controller
 {
     public function index(){
-        $reviews = Review::paginate(10);
+        $reviews = Review::orderByDesc('created_at')->paginate(10);
         return view('reviews.index', compact( 'reviews'));
     }
     public function create(){
         return view('reviews.create');
     }
     public function store(Request $request){
-        $review = new Review();
-        if($request->hasFile('profile')){
-            $filename = time() . '.' . $request->profile->extension();
-            $request->profile->storeAs('public/images', $filename);
-            $review->profile = $filename;
-        }
-        $review->name = $request->name;
-        $review->rating = $request->rating;
-        $review->review = $request->review;
-        $review->save();
+        $this->addReview($request);
         return redirect()->route('reviews.index')->with('success', 'Review Created Successfully');
+    }
+
+    public function approve(Review $review){
+        $review->status = 'publish';
+        $review->save();
+        return redirect()->route('reviews.index')->with('success', 'Review Approved Successfully');
     }
     public function destroy(Review $review){
         $image_path = asset('storage/images/' . $review->profile);
@@ -42,5 +39,23 @@ class ReviewController extends Controller
         //get the latest 6 reviews
         $reviews =ReviewResource::collection(Review::latest()->take(6)->get());
         return response()->json($reviews);
+    }
+
+    public function addReview($request){
+        $review = new Review();
+        if($request->hasFile('profile')){
+            $filename = time() . '.' . $request->profile->extension();
+            $request->profile->storeAs('public/images', $filename);
+            $review->profile = $filename;
+        }
+        $review->name = $request->name;
+        $review->rating = $request->rating;
+        $review->review = $request->review;
+        $review->save();
+        
+    }
+    public function newReview(Request $request){
+        $this->addReview($request);
+        return response()->json(['message' => 'Review Created Successfully']);
     }
 }

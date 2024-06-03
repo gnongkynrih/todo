@@ -12,3 +12,4 @@ Route::get('/getroomimages', 'App\Http\Controllers\RoomImageController@getRoomIm
 Route::get('/getroomimagesbyid/{room}', 'App\Http\Controllers\RoomImageController@getRoomImageByRoomId');
 Route::get('/getroomtoshowbooking/{room}', 'App\Http\Controllers\RoomImageController@getRoomToShowBooking');
 Route::get('/reviews/getreviews', 'App\Http\Controllers\ReviewController@getReviews');
+Route::post('/reviews/newreview', 'App\Http\Controllers\ReviewController@newReview');

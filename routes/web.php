@@ -37,6 +37,7 @@ Route::middleware(['auth', 'verified'])
             Route::get('/reviews', 'index')->name('reviews.index');
             Route::get('/reviews/create', 'create')->name('reviews.create');
             Route::post('/reviews', 'store')->name('reviews.store');
+            Route::put('/reviews/{review}', 'approve')->name('reviews.approve');
             Route::delete('/reviews/{review}', 'destroy')->name('reviews.destroy');
         });
     });
