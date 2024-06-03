@@ -23,10 +23,12 @@ Route::post('/tokens/create', function (Request $request) {
     return ['token' => $token->plainTextToken];
 });
 
-Route::controller(TodoController::class)->group(function(){
-    Route::get('/','index')->name('todo.index');
-    Route::post('/store','store')->name('todo.store');
-    Route::get('/todo/{task}','edit')->name('todo.edit');
-    Route::put('/todo/{task}','update')->name('todo.update');
-    Route::delete('/todo/{task}','destroy')->name('todo.destroy');
+Route::prefix('todo')->group(function(){
+    Route::controller(TodoController::class)->middleware('auth:sanctum')->group(function(){
+        Route::get('/','index')->name('todo.index');
+        Route::post('/store','store')->name('todo.store');
+        Route::get('/{task}','edit')->name('todo.edit');
+        Route::put('/{task}','update')->name('todo.update');
+        Route::delete('/{task}','destroy')->name('todo.destroy');
+    });
 });

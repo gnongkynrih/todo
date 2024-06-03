@@ -23,7 +23,9 @@ class TodoRequest extends FormRequest
     {
         return [
             'task' => 'required|string|max:250',
-            'due_date' => 'required|date'
+            'due_date' => 'required|date',
+            'status' =>'string|nullable',
+            'user_id' =>'numeric|nullable'
         ];
     }
 }

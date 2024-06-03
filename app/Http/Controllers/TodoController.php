@@ -6,57 +6,51 @@ use App\Models\Task;
 use Illuminate\Http\Request;
 use App\Http\Requests\TodoRequest;
 use App\Http\Resources\TaskResource;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\BaseController;
 
 class TodoController extends BaseController
 {
     public function index(){
         $tasks = Task::paginate(10);
-        return response()->json([
-            'data' =>TaskResource::collection($task)
-        ],200);
+        $success['data'] = TaskResource::collection($tasks);
+        return $this->sendResponse($success, 'Task fetched successfully.');
     }
 
+    
     public function store(TodoRequest $request){
-       try{
-            $task = Task::create($request->validated());
-            return response()->json([
-                'data' => new TaskResource($task)
-            ],200);
-       }catch(Exception $e){
-        return response()->json([
-            'data'=>$e->getMessage()
-        ],500);
-       }
+        try{
+            $data = $request->validated();
+            $data['user_id'] = auth()->user()->id;
+            $task = Task::create($data);
+            $success['data'] = new TaskResource($task);
+            $success['message']='Task created successfully';
+            return $this->sendResponse($success, 'Task fetched successfully.');
+        }catch(Exception $e){
+            $this->sendError('Error when adding task', $e->getMessage());
+        }
     }
 
     public function edit(Task $task){
-        return response()->json([
-            'data'=>new TaskResource($task)
-        ],200);
+        $success['data'] = new TaskResource($task);
+        return $this->sendResponse($success, 'Task fetched successfully.');
     }
-    public function update(Task $task,Request $request){
-         try{
-            $task->update($request->validated());
-            return response()->json([
-                'data'=>'updated successfully'
-            ],200);
-         }catch(Exception $e){
-            return response()->json([
-                'data'=>$e->getMessage()
-            ],500);
-         }
+    public function update(Task $task,TodoRequest $request){
+        try{
+            $data = $task->update($request->validated());
+            $success['data'] = $data;
+            return $this->sendResponse($success, 'Task updated successfully.');
+        }catch(Exception $e){
+            $this->sendError('Error when updating task', $e->getMessage());
+        }
     }
     public function destroy(Task $task){
         try{
             $task->delete();
-            return response()->json([
-                'data'=>'deleted'
-            ],200);
+            $success['message'] = 'deleted';
+            return $this->sendResponse($success, 'deleted.');
         }catch(Exception $e){
-            return response()->json([
-                'data'=>$e->getMessage()
-            ],500);
+            $this->sendError('Error when deleting task', $e->getMessage());
         }
     }
 }

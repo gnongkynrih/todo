@@ -1,5 +1,4 @@
-php artisan make:policy TaskPolicy --model=Task
-Taskpolicy.php
+<?php
 namespace App\Policies;
 
 use App\Models\Task;
@@ -8,7 +7,7 @@ use Illuminate\Auth\Access\HandlesAuthorization;
 
 class TaskPolicy
 {
-use HandlesAuthorization;
+    use HandlesAuthorization;
 
     public function viewAny(User $user)
     {
@@ -17,5 +16,4 @@ use HandlesAuthorization;
         }
         return Task::where('user_id', $user->id)->exists();
     }
-
 }
