@@ -23,6 +23,7 @@ class TodoController extends BaseController
             $data = $request->validated();
             $data['user_id'] = auth()->user()->id;
             $data['due_date']= date('Y-m-d', strtotime($data['due_date']));
+            dd($data);
             $task = Task::create($data);
             $success['data'] = new TaskResource($task);
             $success['message']='Task created successfully';
