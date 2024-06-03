@@ -18,7 +18,7 @@ class TaskResource extends JsonResource
             'id' => $this->id,
             'task' =>$this->task,
             'status'=>$this->status,
-            'due_date'=>date('d/m/Y',strtotime('due_date'))
+            'due_date'=>date('d/m/Y',strtotime($this->due_date))
         ];
     }
 }
