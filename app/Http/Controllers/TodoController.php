@@ -38,6 +38,7 @@ class TodoController extends BaseController
     }
     public function update(Task $task,TodoRequest $request){
         try{
+            $request['due_date']= date('Y-m-d', strtotime($request['due_date']));
             $data = $task->update($request->validated());
             $success['data'] = $data;
             return $this->sendResponse($success, 'Task updated successfully.');
